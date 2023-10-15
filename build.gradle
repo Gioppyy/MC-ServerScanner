@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+group 'it.giopanno'
+description 'ServerScanner'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('org.json:json:20210307')
+    implementation('org.fusesource.jansi:jansi:2.3.2')
+}
+
+shadowJar {
+    minimize()
+    archiveFileName = "${project.description}.jar"
+    relocate 'org.json', 'it.giopanno.libs'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'it.giopanno.ServerScanner'
+        )
+    }
+}
